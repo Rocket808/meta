@@ -181,7 +181,7 @@ def listen_loop():
             with microphone as source:
                 audio = recognizer.listen(
                     source,
-                    timeout=1,
+                    timeout=5,
                     phrase_time_limit=3
                 )
 
@@ -319,7 +319,7 @@ def main():
     print("SoundSight running. Press Q in the camera window to quit.")
 
     try:
-        while running:
+        while True:
             ok, frame = camera.read()
 
             if not ok:
@@ -333,7 +333,7 @@ def main():
 
                 if qr_text and qr_text != last_qr_text:
                     print("QR CODE:", qr_text)
-                    speak("QR code reads: " + qr_text, priority=True)
+                    speak ("entering" + qr_text , priority=True)
                     last_qr_text = qr_text
 
             except cv2.error:
@@ -381,17 +381,17 @@ def main():
                     labels.append(label)
                     details.append(detail)
 
-                    print(
-                        f"DETECTED: {label}; "
-                        f"box height={pixel_height:.1f}px; "
-                        f"distance="
-                        f"{distance_ft:.1f} ft"
-                        if distance_ft is not None
-                        else
-                        f"DETECTED: {label}; "
-                        f"box height={pixel_height:.1f}px; "
-                        f"distance unavailable"
-                    )
+#                    print(
+#                        f"DETECTED: {label}; "
+#                        f"box height={pixel_height:.1f}px; "
+#                        f"distance="
+#                        f"{distance_ft:.1f} ft"
+#                        if distance_ft is not None
+#                        else
+#                        f"DETECTED: {label}; "
+#                        f"box height={pixel_height:.1f}px; "
+#                        f"distance unavailable"
+#                    )
 
             with latest_lock:
                 latest_details = list(details)
